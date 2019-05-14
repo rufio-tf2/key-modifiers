@@ -4,9 +4,11 @@ Key Modifiers is a simple script that lets you use some keys to modify the behav
 
 In theory, any key can be set-up to modify other keys, but it's probably best to designate a few "modifier" keys, such as <kbd>SHIFT</kbd>, <kbd>ALT</kbd>, and/or <kbd>CTRL</kbd>.
 
-## Example
+## How to use it
 
-It's easier to explain using an example. I have another script, the [Hightower Practice Script](https://github.com/rufio-tf2/hightower-practice), which uses the numpad keys to teleport you around Hightower.
+### Example
+
+It's easier to explain how to use this by walking through an example. I have another script, the [Hightower Practice Script](https://github.com/rufio-tf2/hightower-practice), which uses the numpad keys to teleport you around Hightower.
 
 One user doesn't have a numpad though. He wants to set up an ALT modifier, to modify his regular number keys to use the Hightower Practice Script numpad actions.
 
@@ -66,7 +68,7 @@ exec key-modifiers/1/alt
 
 In the root [`init.cfg`](key-modifiers/init.cfg) file, I have the <kbd>ALT</kbd> key set to execute `altModify.cfg` when you press down, and then to execute `resetKeys.cfg` when you let up, thus switching the keys between the two states. (I also have the <kbd>SHIFT</kbd> key set up to execute `shiftModify.cfg`).
 
-## A (slightly) harder example
+### A (slightly) harder example
 
 In the example above, the <kbd>1</kbd> key's actions are:
 
@@ -130,6 +132,17 @@ exec key-modifiers/mouse1/default
 // altModify.cfg
 exec key-modifiers/mouse1/alt
 ```
+
+### Create your own
+
+If you don't care about modifying the keys that I've included in this example, just rename my folders (and update the scripts) or delete them. To create your own:
+
+1. Make a folder for each key that you want to modify
+1. Add a `default.cfg`, `bind.cfg`, and any modifier files you want (`alt.cfg`, `shift.cfg`, etc.)
+1. Define its unmodified state in its `default.cfg` file
+1. Define its modified state(s) in its modifier files
+1. Bind the key to its state variable in its `bind.cfg` file
+1. **Remember to bind it to the plus version of the state if necessary**
 
 ## Install
 
