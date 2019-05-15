@@ -6,6 +6,12 @@ In theory, any key can be set-up to modify other keys, but it's probably best to
 
 ## How to use it
 
+I've got this set up to show the following examples of how to use it. For any of these example keys that you aren't planning to modify, you should:
+
+- Remove the key file from the [`keys/`](./key-modifiers/keys) folder
+- Clean them out of [`resetKeys.cfg`](./key-modifiers/resetKeys.cfg) file
+- Clean them out of [`altModify.cfg`](./key-modifiers/altModify.cfg) file
+
 ### Example
 
 It's easier to explain how to use this by walking through an example. I have another script, the [Hightower Practice Script](https://github.com/rufio-tf2/hightower-practice), which uses the numpad keys to teleport me around Hightower.
@@ -14,9 +20,9 @@ One user doesn't have a numpad, though. He wants to set up an <kbd>ALT</kbd> mod
 
 He wants his regular number keys to have two states. Each one will have an **unmodified state** and a **alt-modified state**. The unmodified state is the same thing as its default state. The alt-modified state, in this case, will perform its equivalent numpad action. (If he also wanted to shift-modify these keys, they would have three potential states.)
 
-**For any key that I want to modify, I'll create a file for it inside of the [`keys/`](./keys/) folder.** In this example, I have files for `0`-`9.`, as well as the <kbd>-</kbd> (minus) key which will perform the numpad period action <kbd>. (DEL)</kbd> (`KP_DEL`). I also have a `mouse1.cfg` for a [later example](#a-slightly-harder-example).
+**For any key that I want to modify, I'll create a file for it inside of the [`keys/`](./key-modifiers/keys/) folder.** In this example, I have files for `0`-`9.`, as well as the <kbd>-</kbd> (minus) key which will perform the numpad period action <kbd>. (DEL)</kbd> (`KP_DEL`). I also have a `mouse1.cfg` for a [later example](#a-slightly-harder-example).
 
-This is what the file for the <kbd>1</kbd> key does ([`1.cfg`](./keys/1.cfg)):
+This is what the file for the <kbd>1</kbd> key does ([`1.cfg`](./key-modifiers/keys/1.cfg)):
 
 - Defines a default state (`alias 1Default slot1`)
 - Defines modified states (`alias 1Alt htp_kp1`)
@@ -87,7 +93,7 @@ In this example, let's pretend that I want the alt-modified state to make my cha
 
 To set this up, I do the same things that I did in the first example, but now I create these plus/minus versions of everything. Finally, I bind `MOUSE1` to the plus-version of its state variable.
 
-The [`mouse1.cfg`](./keys/mouse1.cfg) file looks like:
+The [`mouse1.cfg`](./key-modifiers/keys/mouse1.cfg) file looks like:
 
 ```go
 // keys/mouse1.cfg
