@@ -16,7 +16,7 @@ He wants his regular number keys to have two states. Each one will have an **unm
 
 **For any key that I want to modify, I'll create a file for it inside of the [`keys/`](./keys/) folder.** In this example, I have files for `0`-`9.`, as well as the <kbd>-</kbd> (minus) key which will perform the numpad period action <kbd>. (DEL)</kbd> (`KP_DEL`). I also have a `mouse1.cfg` for a [later example](#a-slightly-harder-example).
 
-This is what the file for the <kbd>1</kbd> key does ([`1.cfg`](.//keys/1.cfg)):
+This is what the file for the <kbd>1</kbd> key does ([`1.cfg`](./keys/1.cfg)):
 
 - Defines a default state (`alias 1Default slot1`)
 - Defines modified states (`alias 1Alt htp_kp1`)
@@ -24,6 +24,7 @@ This is what the file for the <kbd>1</kbd> key does ([`1.cfg`](.//keys/1.cfg)):
 - Binds the key to its state variable (`bind 1 1State`)
 
 ```go
+// 1.cfg
 alias 1Default slot1
 alias 1Alt htp_kp1
 
@@ -35,12 +36,15 @@ Scripting in TF2 is a little janky, and the system doesn't seem to handle it ver
 
 Rather than using modifier keys (like <kbd>ALT</kbd>) to re-bind what other keys do, I use a system where I set up keys to only be bound to a designated variable, and then use modifier keys to mutate the definition of those variables.
 
-**Note:**
-The `slot1` action is the <kbd>1</kbd> key's default action, which switches to my first weapon slot. (Here's the [full list of default keys](https://wiki.teamfortress.com/wiki/List_of_default_keys).)
+**Note:** The `slot1` action is the <kbd>1</kbd> key's default action, which switches to my first weapon slot. (Here's the [full list of default keys](https://wiki.teamfortress.com/wiki/List_of_default_keys).) The `htp_kp1` action comes from the Hightower Practice Script, and refers to the numpad <kbd>1 (END)</kbd> (`KP_END`).
 
-The `htp_kp1` action comes from the Hightower Practice Script, and refers to the numpad <kbd>1 (END)</kbd> (`KP_END`).
+Now, I need to have the controller files actually change these states. These "controller" files are:
 
-Now, I need to have the controller files actually change these states. These "controller" files are [`altModify.cfg`](key-modifiers/altModify.cfg), [`shiftModify.cfg`](key-modifiers/shiftModify.cfg), and [`resetKeys.cfg`](key-modifiers/resetKeys.cfg). I'm going to ignore the shift-modifier stuff, but working with it would be equivalent to working with the alt-modifier.
+- [`resetKeys.cfg`](key-modifiers/resetKeys.cfg)
+- [`altModify.cfg`](key-modifiers/altModify.cfg),
+- [`shiftModify.cfg`](key-modifiers/shiftModify.cfg)
+
+I'm going to ignore the shift-modifier stuff, but working with it would be equivalent to working with the alt-modifier.
 
 In these files, I need to mutate the key's state variable. I've already done this step for these keys so that there's an example to follow.
 
@@ -81,11 +85,9 @@ alias +CUSTOM_attack +attack; alias -CUSTOM_attack -attack;
 
 In this example, let's pretend that I want the alt-modified state to make my character jump, which is `+jump` and `-jump`.
 
-To set this up, I do the same things that I did in the first example, but now I create these plus/minus versions of everything. My unmodified, default state has a plus/minus version, my alt-modified state does, too.
+To set this up, I do the same things that I did in the first example, but now I create these plus/minus versions of everything. Finally, I bind `MOUSE1` to the plus-version of its state variable.
 
-My state variable has a plus/minus version. And finally, I bind `MOUSE1` to the plus-version of its state variable.
-
-After all of this, the [`mouse1.cfg`][./keys/mouse1.cfg] looks like:
+The [`mouse1.cfg`](./keys/mouse1.cfg) file looks like:
 
 ```go
 // keys/mouse1.cfg
@@ -120,7 +122,7 @@ alias +mouse1State +mouse1Alt; alias -mouse1State -mouse1Alt;
 Imagine that, instead of jumping, I want <kbd>ALT</kbd>+<kbd>MOUSE1</kbd> to say something to the server (something clever and witty about random crits, for example).
 
 ```
-alias spewMyWit "say Think I'm Oscar Wilde, but I'm really just Dorian Gray"
+alias spewMyWit "say I think I'm Oscar Wilde, but I'm really just Dorian Gray"
 ```
 
 The `say` command isn't a plus/minus command, so it doesn't obviously align with `+mouse1State` and `-mouse1State`.
@@ -136,7 +138,7 @@ This would be the full file:
 
 ```go
 // mouse1/alt.cfg
-alias spewMyWit "say Think I'm Oscar Wilde, but I'm really just Dorian Gray"
+alias spewMyWit "say I think I'm Oscar Wilde, but I'm really just Dorian Gray"
 alias +CUSTOM_attack +attack; alias -CUSTOM_attack -attack;
 
 alias +mouse1Default +CUSTOM_attack
