@@ -6,11 +6,11 @@ In theory, any key can be set-up to modify other keys, but it's probably best to
 
 ## How to use it
 
-I've got this set up to show the following examples of how to use it. For any of these example keys that you aren't planning to modify, you should:
+I've got this set up to show the following examples of how to use it. The example code is commented out. Feel free to delete any of the stuff you aren't using:
 
-- Remove the key file from the [`keys/`](./key-modifiers/keys) folder
-- Clean them out of [`resetKeys.cfg`](./key-modifiers/resetKeys.cfg) file
-- Clean them out of [`altModify.cfg`](./key-modifiers/altModify.cfg) file
+- Clean up key files from the [`keys/`](./key-modifiers/keys) folder
+- Remove unused from [`resetKeys.cfg`](./key-modifiers/resetKeys.cfg) file
+- Remove unused from [`altModify.cfg`](./key-modifiers/altModify.cfg) file
 
 ### Example
 
@@ -18,29 +18,30 @@ It's easier to explain how to use this by walking through an example. I have ano
 
 One user doesn't have a numpad, though. He wants to set up an <kbd>ALT</kbd> modifier to modify his regular number keys, so that when he holds <kbd>ALT</kbd> and presses a number it will perform its equivalent Hightower Practice Script numpad action.
 
-He wants his regular number keys to have two states. Each one will have an **unmodified state** and a **alt-modified state**. The unmodified state is the same thing as its default state. The alt-modified state, in this case, will perform its equivalent numpad action. (If he also wanted to shift-modify these keys, they would have three potential states.)
+He wants his regular number keys to have two states. Each one will have an **unmodified state** and an **alt-modified state**. The unmodified state is the same thing as its default state. The alt-modified state, in this case, will perform its equivalent numpad action. (If he also wanted to shift-modify these keys, they would have three potential states.)
 
-**For any key that I want to modify, I'll create a file for it inside of the [`keys/`](./key-modifiers/keys/) folder.** In this example, I have files for `0`-`9.`, as well as the <kbd>-</kbd> (minus) key which will perform the numpad period action <kbd>. (DEL)</kbd> (`KP_DEL`). I also have a `mouse1.cfg` for a [later example](#a-slightly-harder-example).
+**For any key that I want to modify, I'll create a file for it inside of the [`keys/`](./key-modifiers/keys/) folder.** In this example, I have files for the <kbd>0</kbd>-<kbd>9</kbd> keys, as well as for the <kbd>-</kbd> (minus) key which I'll use to perform the numpad period action <kbd>. (DEL)</kbd> (`KP_DEL`). I also have a `mouse1.cfg` for a [later example](#a-slightly-harder-example).
 
 This is what the file for the <kbd>1</kbd> key does ([`1.cfg`](./key-modifiers/keys/1.cfg)):
 
 - Defines a default state (`alias 1Default slot1`)
-- Defines modified states (`alias 1Alt htp_kp1`)
 - Starts the key's state variable (`1State`) at its unmodified state (`alias 1State 1Default`)
 - Binds the key to its state variable (`bind 1 1State`)
+
+Then, since I want to alt-modify the key, I'll also add that state's definition (commented out).
 
 ```go
 // 1.cfg
 alias 1Default slot1
-alias 1Alt htp_kp1
+alias 1Alt htp_kp1 // Create an alt-modified state
 
 alias 1State 1Default
 bind 1 1State
 ```
 
-Scripting in TF2 is a little janky, and the system doesn't seem to handle it very well when we use some keys to re-bind other keys.
+Scripting in TF2 is a little janky, and (apparently) the system doesn't seem to handle it very well when we use some keys to re-bind other keys.
 
-Rather than using modifier keys (like <kbd>ALT</kbd>) to re-bind what other keys do, I use a system where I set up keys to only be bound to a designated variable, and then use modifier keys to mutate the definition of those variables.
+Rather than using modifier keys (like <kbd>ALT</kbd>) to re-bind what other keys do, this system sets keys to only be bound to a designated variable, and then uses modifier keys to mutate the definition of those variables without having to re-bind the key.
 
 **Note:** The `slot1` action is the <kbd>1</kbd> key's default action, which switches to my first weapon slot. (Here's the [full list of default keys](https://wiki.teamfortress.com/wiki/List_of_default_keys).) The `htp_kp1` action comes from the Hightower Practice Script, and refers to the numpad <kbd>1 (END)</kbd> (`KP_END`).
 
@@ -61,7 +62,7 @@ In the `resetKeys.cfg`, I'll set the `1State` to its default, unmodified state:
 alias 1State 1Default
 ```
 
-In the `altModify.cfg`, I'll set the `1State` to its alt-modified state:
+In the `altModify.cfg`, I'll set the `1State` to its alt-modified state (see the commented lines):
 
 ```go
 // altModify.cfg
